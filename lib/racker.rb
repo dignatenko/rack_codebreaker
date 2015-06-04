@@ -72,6 +72,7 @@ class Racker
           @@secret_code = nil
           @@step = 1
         else
+          @@results = {}
           @@step = 4
         end
         response.redirect("/")
