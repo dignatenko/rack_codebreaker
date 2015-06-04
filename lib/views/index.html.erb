@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WEB page</title>
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  </head>
+  <body>
+    <div id="container">
+      <div id="left-block">
+        <% unless step == 4 %>
+          <h1>Welcome to codebreaker</h1>
+          <% if step > 0 %>
+            <h4><%= username %> is playing now</h4>
+          <% end %>
+        <% end %>
+        <% if step == 0 %>
+          <h3>Enter your name</h3>
+          <form method="post" action="/create_username">
+            <input name="username" type="text">
+            <input type="submit" value="Next">
+          </form>
+        <% elsif step == 1 %>
+          <h3>Enter number of attempts</h3>
+          <form method="post" action="/create_attempts">
+            <select name="attempts">
+              <% (1..10).to_a.each do |value| %>
+                <option><%= value %></option>
+              <% end %>
+            </select>
+            <input type="submit" value="Next">
+          </form>
+        <% elsif step == 2 %>
+          <% if result %>
+            <h3>Result <%= result %></h3>
+          <% end %>
+          <% if error_code%>
+            <h3><%= error_code %></h3>
+          <% end %>
+          <form method="post" action="/new_trying">
+            <input name="new_code" type="text">
+            <input type="submit" value="Confirm">
+          </form>
+          <h3><%= hint_for_user %></h3>
+          <form method="post" action="/hint">
+            <input type="submit" value="Hint"/>
+          </form>
+        <% elsif step == 3 %>
+          <% if user_win %>
+            <h2>Congratulate! You won!</h2>
+          <% else %>
+            <h3>Unfortunately you lose! LOSER :)</h3>
+          <% end %>
+          <h3>Do you want play again?</h3>
+          <form method="post" action="/play_again">
+            <select name="play_again">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <input type="submit" value="Next">
+          </form>
+        <% elsif step == 4 %>
+          <h2>Goodbye!</h2>
+          <form method="post" action="/new_game">
+            <input type="submit" value="New game"/>
+          </form>
+        <% else %>
+          <h3>Error</h3>
+        <% end %>
+      </div>
+      <div id="right-block">
+        <% if results.any? %>
+          <% results.each do |code, result_array| %>
+            <span>code: <%= code %></span>
+            <span>result: <%= result_array %></span>
+            <br/>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>
