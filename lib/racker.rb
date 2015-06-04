@@ -121,6 +121,6 @@ class Racker
   end
 
   def write_to_file(file_name, text)
-    File.open("lib/files/#{file_name}.txt", 'a'){|file| file.write text}
+    File.open("#{file_name}.txt", 'a'){|file| file.write text}
   end
 end
