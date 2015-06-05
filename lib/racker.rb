@@ -57,7 +57,7 @@ class Racker
             write_to_file 'result_file', "\n\nPlayer: #{@@username}\nUsed #{@@turns - @@attempts} turns.\nYour result code is: [#{result_array.join}]"
           end
         else
-          @@error_code = "You are idiot"
+          @@error_code = "Error! You must dial four digits ranging from 1 to 6."
         end
         response.redirect("/")
       end
