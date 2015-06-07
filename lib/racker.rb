@@ -14,6 +14,7 @@ class Racker
       @@computer = Codebreaker::Computer.new
       @@computer.generate_codes
       @@secret_code = @@computer.instance_variable_get(:@secret_code)
+      puts @@secret_code
       @@result = nil
       @@hint = nil
       @@user_win = false
@@ -42,6 +43,7 @@ class Racker
       end
     when "/new_trying"
       Rack::Response.new do |response|
+        @@error_code = nil
         if @request.params["new_code"].match(/^[1-6]{4}$/)
           result_array = @@compare.compare_codes(@request.params["new_code"].split('').map{|item| item.to_i})
           @@results[@request.params["new_code"]] = result_array.join
